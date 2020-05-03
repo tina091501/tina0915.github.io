@@ -1,0 +1,187 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calculation</title>
+	<link href="css/always.css" rel="stylesheet" type="text/css">	
+	<link href="css/bootstrap-4.3.1.css" rel="stylesheet" type="text/css">
+	<link href="css/scrollbar.css" rel="stylesheet" type="text/css">
+</head>
+<body style="padding-top: 70px">
+<!--導覽列-->
+<div class="container fixed-top font-style">
+  <nav class="navbar navbar-expand-lg navbar-brown bg-brown">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sw_calculation"> <span class="navbar-toggler-icon"></span> </button>
+	<a class="navbar-brand" href="#"><div style="background: url(image/Lushen_Icon.png); width: 30px; height: 30px; border-radius: 20px; background-size: cover;"></div></a>
+    <div class="collapse navbar-collapse" id="sw_calculation">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active"> 
+			<a class="nav-link" href="#">Simple Average Damage</a> 
+		</li>
+        <li class="nav-item"> 
+			<a class="nav-link" href="Damage dealer - noDRF.html">Average Damage</a> 
+		</li>
+        <li class="nav-item"> 
+			<a class="nav-link" href="DamageReductionFactor.html">DRF</a> 
+		</li>
+        <li class="nav-item"> 
+			<a class="nav-link" href="EHP.html">EHP</a> 
+		</li>
+        <li class="nav-item dropdown"> 
+			<a class="nav-link dropdown-toggle" id="sw_calculation_dropdown" role="button" data-toggle="dropdown">!</a>
+          	<div class="dropdown-menu"> 
+				<a class="dropdown-item" href="Source.html">Help</a> 
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="Source.html">Source</a>
+ 
+			</div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>	
+<div class="space"></div>
+	
+<!--公式-->
+<div class="container bg-light font-style main">
+	<div class="row">
+		<div class="col">
+			<p>一般打手篇</p>
+			<p>公式：令攻擊白字為1，(攻擊白字+綠字)*暴傷*暴率+(攻擊白字+綠字)*(1-暴率)，<br>
+			滿建築自動增加41%攻擊、25%暴傷</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<form>
+				白字
+				<input type="text" class="import" id="atk_white" tabindex="1"><br>
+				綠字
+				<input type="text" class="import" id="atk_green" tabindex="2"><br>
+				爆擊率
+				<input type="text" class="import" id="cr" placeholder="(%)" tabindex="3"><br>
+				爆傷
+				<input type="text" class="import" id="cd" placeholder="(%)" tabindex="4"><br><br>
+				<input type="checkbox" id="checkbox1">滿建築<br>
+			</form>
+		</div>
+	</div>
+	<div class="row justify-content-end">
+		<div class="col-2" id="remove">
+			<div class="btn btn-brown">清空</div>
+		</div>
+		<div class="col-4" id="go1">
+			<div class="btn btn-brown" onclick="myFunction()" tabindex="999"><a>期望值計算</a></div>
+		</div>
+		<div class="col-2">
+			<output type="text" class="result" id="result1"></output>
+		</div>
+		<div class="col-2">
+			<output type="text" class="result" id="result2"></output>
+		</div>
+	</div>
+</div>	
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>	
+	
+<!--頁尾-->
+<div class="container-fluid bg-light fixed-bottom font-style" style="z-index:-1;">
+	<div class="row justify-content-end">
+		<div class="col-4">
+			&copy;
+			I have no copyright for it. And just for fun. &#10004;
+		</div>
+	</div>
+</div>
+<!-- <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script> -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap-4.3.1.js"></script>
+
+<script>
+$(function(){
+	/*第一式 成功*/
+	$("#go1").click(function(){
+		if($("#cr").val()==""){
+			$("#cr").val("15");
+		}
+		if($("#cd").val()==""){
+			$("#cd").val("50");
+		}
+		
+				var a = parseInt(document.getElementById("atk_white").value);
+				var b = parseInt(document.getElementById("atk_green").value);
+				var c = parseInt(document.getElementById("cr").value);
+				var d = parseInt(document.getElementById("cd").value);
+		
+		if($("#checkbox1").prop('checked')){
+			
+				var S_damage_checked = 1.41 + b/a + 1.41*c*d/10000+ b*c*d/a/10000 + 1.41*c/400 + b*c/a/400;
+				S_damage_checked = S_damage_checked.toFixed(2);
+				$("#result1").html(S_damage_checked);	
+			
+		}else{
+			
+				var S_damage = 1 + c*d/10000+ b/a + b*c*d/a/10000;
+				S_damage = S_damage.toFixed(2);
+				//document.getElementById("result1").value =  a+b ;
+				/*公式來源→(1+b/a)*(1+c%*d%)←公式來源(%=1/100)*/
+				$("#result1").html(S_damage);	
+			
+		}
+		
+		/*@Enter後回到第一個focus*/
+		if(which == 13){
+			$(function(){
+				$("#atk_white").focus();			
+			});
+		}
+		/*@顯示輸入錯誤*/
+		if(c > 100){
+				alert("max CR% is 100%");
+		}
+	});
+});
+	
+/*Enter*/
+$(function(){
+    $(document).keypress(function(e) {
+        if(e.which == 13) {
+            $("#go1").focus().click();
+			//$(this).addClass("btn");/*使按鈕回饋*/
+        }
+    });  
+});
+	
+/*清空*/
+$(document).ready(function(){
+	  $("#remove").click(function(){
+      $(".import").val("");
+	  });
+});
+		
+/*使撥放影片後按carousel切換會影片暫停
+$(function(){
+	$("#videocarousel_1").carousel({
+	  interval: 3000
+	}).on(".carousel-control-prev", function () {
+	  document.getElementById("player").pause();
+	});	
+	$("#videocarousel_1").carousel({
+	  interval: 3000
+	}).on(".carousel-control-next", function () {
+	  document.getElementById("player").pause();
+	});	
+});
+*/
+</script>
+</body>
+</html>

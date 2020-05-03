@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>無標題文件</title>
+	<link href="css/always.css" rel="stylesheet" type="text/css">	
+	<link href="css/bootstrap-4.3.1.css" rel="stylesheet" type="text/css">
+	<link href="css/scrollbar.css" rel="stylesheet" type="text/css">
+<style>
+	.fixed-bottom{
+		position: fixed !important;
+	}
+</style>
+
+</head>
+<body style="padding-top: 70px">
+<!--導覽列-->
+<div class="container fixed-top font-style">
+  <nav class="navbar navbar-expand-lg navbar-brown bg-brown">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sw_calculation"> <span class="navbar-toggler-icon"></span> </button>
+	<a class="navbar-brand" href="#"><div style="background: url(image/Lushen_Icon.png); width: 30px; height: 30px; border-radius: 20px; background-size: cover;"></div></a>
+    <div class="collapse navbar-collapse" id="sw_calculation">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active"> 
+			<a class="nav-link" href="Calculationfirst2.5.html">Simple Average Damage</a> 
+		</li>
+        <li class="nav-item"> 
+			<a class="nav-link" href="Damage dealer - noDRF.html">Average Damage</a> 
+		</li>
+        <li class="nav-item"> 
+			<a class="nav-link" href="#">DRF</a> 
+		</li>
+        <li class="nav-item"> 
+			<a class="nav-link" href="EHP.html">EHP</a> 
+		</li>
+        <li class="nav-item dropdown"> 
+			<a class="nav-link dropdown-toggle" id="sw_calculation_dropdown" role="button" data-toggle="dropdown">!</a>
+          	<div class="dropdown-menu"> 
+				<a class="dropdown-item" href="Source.html">Help</a> 
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="Source.html">Source</a>
+ 
+			</div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>	
+	<div class="space"></div>
+
+<!--公式-->
+<div class="container bg-light font-style main">
+	<div class="row">
+		<div class="col">
+		  <p>減傷率(DRF)</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<label for="num1">防禦</label>
+			<input type="text" tabindex="1" id = "num1"/><br>
+		</div>
+	</div>
+	<div class="row justify-content-center">
+		<div class="col-4">
+			<label for="num2">減傷率</label>
+			<span id = "num2">0</span><br>
+			<button class="btn btn-brown" onclick="add()" tabindex="999" id="go1">計算</button>
+		</div>
+	</div>
+</div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	
+<!--頁尾-->
+<div class="container-fluid bg-light fixed-bottom font-style" style="z-index:-1;">
+	<div class="row justify-content-end">
+		<div class="col-4">
+			&copy;
+			I have no copyright for it. And just for fun. &#10004;
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script src="js/bootstrap-4.3.1.js"></script>	
+<script>
+	function add(){
+		var n1 = parseInt(document.getElementById("num1").value);
+		var n2 = 1140+3.5*n1;
+		var n3 = 1000/n2;
+		n3 = n3.toFixed(4);
+		var n4 = document.getElementById("num2");
+		n4.innerHTML = n3;
+	}
+$(function(){
+    $(document).keypress(function(e) {
+        if(e.which == 13) {
+            $("#go1").focus().click();
+			//$(this).addClass("btn");/*使按鈕回饋*/
+        }
+    });  
+});
+</script>
+</body>
+</html>

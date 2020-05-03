@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Calculation</title>
+<link href="css/always.css" rel="stylesheet" type="text/css">
+<link href="css/bootstrap-4.3.1.css" rel="stylesheet" type="text/css">
+<link href="css/scrollbar.css" rel="stylesheet" type="text/css">
+</head>
+
+<body style="padding-top: 70px">
+<!--導覽列-->
+<div class="container fixed-top font-style">
+  <nav class="navbar navbar-expand-lg navbar-brown bg-brown">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sw_calculation"> <span class="navbar-toggler-icon"></span> </button>
+	<a class="navbar-brand" href="#"><div style="background: url(image/Lushen_Icon.png); width: 30px; height: 30px; border-radius: 20px; background-size: cover;"></div></a>
+    <div class="collapse navbar-collapse" id="sw_calculation">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active"> 
+			<a class="nav-link" href="Calculationfirst2.5.html">Simple Average Damage</a> 
+		</li>
+        <li class="nav-item"> 
+			<a class="nav-link" href="#">Average Damage</a> 
+		</li>
+        <li class="nav-item"> 
+			<a class="nav-link" href="DamageReductionFactor.html">DRF</a> 
+		</li>
+        <li class="nav-item"> 
+			<a class="nav-link" href="EHP.html">EHP</a> 
+		</li>
+        <li class="nav-item dropdown"> 
+			<a class="nav-link dropdown-toggle" id="sw_calculation_dropdown" role="button" data-toggle="dropdown">!</a>
+          	<div class="dropdown-menu"> 
+				<a class="dropdown-item" href="Source.html">Help</a> 
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="Source.html">Source</a>
+ 
+			</div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</div>	
+	<div class="space"></div>
+	
+<!--公式-->
+<div class="container bg-light font-style main">
+	<div class="row">
+		<div class="col">
+			<p>一般打手篇</p>
+			<p>公式：暴擊傷害*暴率+未爆擊傷害*(1-暴率)，<br>
+			滿建築自動增加41%攻擊、25%暴傷</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<form>
+				白字
+				<input type="text" class="import" tabindex="1" id="atk_white"><br>
+				綠字
+				<input type="text" class="import" tabindex="2" id="atk_green"><br>
+				暴擊率
+				<input type="text" class="import" tabindex="3" placeholder="(%)" id="cr"><br>
+				暴傷
+				<input type="text" class="import" tabindex="4" placeholder="(%)" id="cd"><br>
+				係數
+				<input type="text" class="import" tabindex="5" placeholder="Multiplier(%)" id="multiplier"><br>
+				技能提升
+				<input type="text" class="import" tabindex="6" placeholder="SkillUps(%)" id="skillups"><br>
+				我軍buff(攻)
+				<input type="text" class="import" tabindex="7" placeholder="AllyBuff ATK(%)" id="allybuff_atk"><br>
+				我軍buff(傷)
+				<input type="text" class="import" tabindex="8" placeholder="AllyBuff CD(%)" id="allybuff_cd"><br>
+				減傷率(DRF)
+				<input type="text" class="import" tabindex="9" placeholder="DRF(唯一輸入小數點)" id="DRF"><br>
+				<input type="checkbox" id="checkbox1">滿建築<br>
+			</form>
+		</div>
+	</div>
+	<div class="row justify-content-end">
+		<div class="col-2" id="remove">
+			<div class="btn btn-brown">清空</div>
+		</div>
+		<div class="col-4" id="go1">
+			<div class="btn btn-brown" onclick="myFunction()" tabindex="999"><a>期望值計算</a></div>
+		</div>
+		<div class="col-2">
+			平均傷害
+			<output id="result1"></output><br>
+		</div>
+		<div class="col-2">
+			暴擊傷害
+			<output id="result2"></output><br>
+		</div>
+		<div class="col-2">
+			未爆擊傷害
+			<output id="result3"></output><br>
+		</div>
+	</div>
+</div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>
+	<div class="space"></div>		
+	
+<!--頁尾-->
+<div class="container-fluid bg-light fixed-bottom font-style" style="z-index:-1;">
+	<div class="row justify-content-end">
+		<div class="col-4">
+			&copy;
+			I have no copyright for it. And just for fun. &#10004;
+		</div>
+	</div>
+</div>
+<!-- <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script> -->
+<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+<script src="js/bootstrap-4.3.1.js"></script>	
+<script>
+$(function(){
+	$("#go1").click(function(){
+		if($("#cr").val()==""){
+			$("#cr").val("15");
+		}
+		if($("#cd").val()==""){
+			$("#cd").val("50");
+		}
+		if($("#multiplier").val()==""){
+			$("#multiplier").val("100");
+		}
+		if($("#skillups").val()==""){
+			$("#skillups").val("0");
+		}
+		if($("#allybuff_atk").val()==""){
+			$("#allybuff_atk").val("0");
+		}
+		if($("#allybuff_cd").val()==""){
+			$("#allybuff_cd").val("0");
+		}
+		if($("#DRF").val()==""){
+			$("#DRF").val("0.877");
+		}		
+		
+			var atkwhite = parseInt(document.getElementById("atk_white").value);
+			var atkgreen = parseInt(document.getElementById("atk_green").value);
+			var cr = parseInt(document.getElementById("cr").value)/100;
+			var cd = parseInt(document.getElementById("cd").value)/100;
+			var multiplier = parseInt(document.getElementById("multiplier").value)/100;
+			var skillups = parseInt(document.getElementById("skillups").value)/100;
+			var atkallybuff = parseInt(document.getElementById("allybuff_atk").value)/100;
+			var cdallybuff = parseInt(document.getElementById("allybuff_cd").value)/100;
+			var DRF = parseFloat(document.getElementById("DRF").value);
+		
+		if($("#checkbox1").prop('checked')){
+			
+			/*總攻擊力*係數*(1+技能提升+暴傷)*/
+			var totalstat = atkwhite*1.41 + atkwhite*atkallybuff + atkgreen;
+			var nomald = 1 + skillups;		
+			var cirtd = 1.25 + skillups + cd + cdallybuff;	
+
+			var averagedamage = totalstat*multiplier*cirtd*cr + totalstat*multiplier*nomald - totalstat*multiplier*nomald*cr;
+			var critdamage    = totalstat*multiplier*cirtd;
+			var nomaldamage   = totalstat*multiplier*nomald;
+			
+			var averagedamage_DRF = averagedamage*DRF;
+			var critdamage_DRF = critdamage*DRF;
+			var nomaldamage_DRF = nomaldamage*DRF;
+			
+			averagedamage_DRF = averagedamage_DRF.toFixed(0);
+			critdamage_DRF = critdamage_DRF.toFixed(0);
+			nomaldamage_DRF = nomaldamage_DRF.toFixed(0);
+			
+			$("#result1").html(averagedamage_DRF); 
+			$("#result2").html(critdamage_DRF);
+			$("#result3").html(nomaldamage_DRF);
+			
+		}else{
+			
+			/*總攻擊力*係數*(1+技能提升+暴傷)*/
+			var totalstat = atkwhite + atkwhite*atkallybuff + atkgreen;
+			var nomald = 1 + skillups;		
+			var cirtd = 1 + skillups + cd + cdallybuff;	
+
+			var averagedamage = totalstat*multiplier*cirtd*cr + totalstat*multiplier*nomald - totalstat*multiplier*nomald*cr;
+			var critdamage    = totalstat*multiplier*cirtd;
+			var nomaldamage   = totalstat*multiplier*nomald;
+			
+			var averagedamage_DRF = averagedamage*DRF;
+			var critdamage_DRF = critdamage*DRF;
+			var nomaldamage_DRF = nomaldamage*DRF;
+			
+			averagedamage_DRF = averagedamage_DRF.toFixed(0);
+			critdamage_DRF = critdamage_DRF.toFixed(0);
+			nomaldamage_DRF = nomaldamage_DRF.toFixed(0);
+			
+			$("#result1").html(averagedamage_DRF); 
+			$("#result2").html(critdamage_DRF);
+			$("#result3").html(nomaldamage_DRF);	
+			
+		}
+	});
+});
+	
+/*Enter*/
+$(function(){
+    $(document).keypress(function(e) {
+        if(e.which == 13) {
+            $("#go1").focus().click();
+			//$(this).addClass("btn");/*使按鈕回饋*/
+        }
+    });  
+});
+	
+/*清空*/
+$(document).ready(function(){
+	  $("#remove").click(function(){
+      $(".import").val("");
+	  });
+});	
+</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Untitled Document</title>
+	<link href="css/always.css" rel="stylesheet" type="text/css">	
+	<link href="css/bootstrap-4.3.1.css" rel="stylesheet">
+	<link href="css/scrollbar.css" rel="stylesheet" type="text/css">
+	<link href="css/card_animate.css" rel="stylesheet" type="text/css">
+	<link href="css/scrollbar.css" rel="stylesheet" type="text/css">
+<style>
+	.fixed-bottom{
+		position: fixed !important;
+	}
+</style>
+</head>
+<body>
+<!--參考檔案-->
+<div class="container-fluid" id="S">
+	<div class="card col-md-4 float-left font-style" id="card">
+		<div class="card-body front">
+			<h5 class="card-title">Help &amp; Source</h5>
+			<h6 class="card-subtitle mb-2 text-muted">免責聲明：歡迎自由使用網頁</h6>
+			<p class="card-text">〈資料參考〉</p>
+			<li><a href="https://summonerswar.fandom.com/wiki/Guide:Skill_damage" class="card-link">wiki</a></li>
+		  <li><a href="https://summonerswarskyarena.info/" class="card-link">wiki2</a></li>
+			<li><a href="#" class="card-link">koala0913 in 巴哈</a></li>
+			<li><a href="#" class="card-link">嵐之月 in 巴哈</a></li>
+		</div>
+		<div class="back" align="center">
+			<a id="back" href="Calculationfirst2.5.html"><img src="image/target-with-stand@3x.png" width="100" height="100" alt=""/></a>
+		</div>
+	</div>
+	<!--Help1-->
+	<div class="card col-md-4 float-left font-style" id="card2">
+		<div class="card-body front">
+			<h5 class="card-title">Help</h5>
+			<p>請試著用tab鍵搭配enter</p>
+		</div>
+		<div class="back" align="center">
+					<input type="text" class="import" tabindex="1"><br>
+					<input type="text" class="import" tabindex="2"><br>
+					<input type="text" class="import" tabindex="3"><br>
+					<input type="text" class="import" tabindex="4"><br>
+					<!--value="Submit"-->
+					<input type="submit" class="btn btn-brown" id="go2">
+		</div>
+	</div>
+	<!--Help2-->
+	<div class="card col-md-4 float-left font-style" id="card3">
+		<div class="card-body front">
+			<h5 class="card-title">Help</h5>
+			<p>
+				．勾"滿建築"，公式會自動加算41%攻擊、25%暴傷<br><br>
+				．不勾"滿建築"，可至戰鬥畫面的"我軍buff"查詢數值彈性輸入<br><br>
+			</p>
+		</div>
+	</div>
+	<!--Help3-->
+	<div class="card col-md-4 float-left font-style" id="card4">
+		<div class="card-body front">
+			<h5 class="card-title">Help</h5>
+			<p>
+				．另外因公式已有換算百分比
+			</p>
+			<p style="font-size: 12px ; text-align: center ; background-color: lavenderblush;">
+				100%   請輸入  "100"<br>
+				55.5% 請輸入   "55"哦
+			</p>
+		</div>
+	</div>
+</div>
+	<div class="space"></div>	  
+	<div class="space"></div>
+	
+<!--頁尾-->
+<div class="container-fluid bg-light fixed-bottom font-style" style="z-index:-1;">
+	<div class="row justify-content-end">
+		<div class="col-4">
+			&copy;
+			I have no copyright for it. And just for fun. &#10004;
+		</div>
+	</div>
+</div>
+	
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+	<script src="js/jquery-3.3.1.min.js"></script>
+	
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/popper.min.js"></script> 
+<script src="js/bootstrap-4.3.1.js"></script>
+<script type="text/javascript" src="js/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="js/imagesloaded.pkgd.js"></script>
+<script>
+$(document).ready(function(){
+	document.getElementById("card").addEventListener("click",function(e){
+		if(this.className.search("flip") === -1)
+		{this.className = this.className + " flip";}
+		else
+		{this.className = "card"; }   
+	});	
+	document.getElementById("card2").addEventListener("click",function(e){
+		if(this.className.search("flip") === -1)
+		{this.className = this.className + " flip";}
+		else
+		{this.className = "card"; }   
+	});	
+	
+$(function(){
+	$("#S").imagesLoaded(function(){
+		$("#S").masonry();
+	});
+});		
+	
+	/*Enter*/
+    $(document).keypress(function(e) {
+        if(e.which == 13) {
+            $("#go2").focus().click();
+			/*使卡片動畫消失*/
+			//$("#card2").removeAttr("card_animate");
+			
+			//$(this).addClass("btn");/*使按鈕回饋*/
+        }
+    });
+});
+</script>
+  </body>
+</html>
